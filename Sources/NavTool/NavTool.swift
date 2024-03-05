@@ -116,36 +116,18 @@ class NavTool {
     }
     
     public func getDirectionOfTurn(from heading: Double, to newHeading: Double) -> TurnTo {
-        var returnValue: TurnTo = .unknown
+        var returnValue: TurnTo = .right
         var currentHeading = heading == 0 ? 360 : heading
-        let reciprocal = computeReciprocal(heading: heading)
         
-        if reciprocal > 180 {
-            if newHeading > reciprocal {
-                returnValue = .left
-            } else {
-                returnValue = .right
-            }
-        } else {
-            if newHeading <= currentHeading,
-               newHeading > reciprocal {
-                
-                returnValue = .left
-            } else {
-                returnValue = .right
-            }
+        if newHeading < heading,
+           heading - newHeading < 180 {
+            returnValue = .left
+        } else if newHeading > heading,
+                  heading < 180,
+                  newHeading < 360,
+                  newHeading - heading > 180 {
+            returnValue = .left
         }
         return returnValue
     }
-    
-    private func computeReciprocal(heading: Double) -> Double {
-        var retValue: Double = 0
-        if heading >= 180 {
-            retValue = heading - 180
-        } else {
-            retValue = heading + 180
-        }
-        return retValue
-    }
-
 }
