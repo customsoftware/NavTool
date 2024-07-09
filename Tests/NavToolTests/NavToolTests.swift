@@ -17,6 +17,18 @@ final class NavToolTests: XCTestCase {
         // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
     }
     
+    func testLiveCases() throws {
+        // Test CAse
+        var currentHeading: Double = 178
+        var desiredHeading: Double = 326
+        var turn = NavTool.shared.getDirectionOfTurn(from: currentHeading, to: desiredHeading)
+        XCTAssertTrue( turn.textOfTurn == "Right")
+        
+        currentHeading = 338
+        desiredHeading = 326
+        turn = NavTool.shared.getDirectionOfTurn(from: currentHeading, to: desiredHeading)
+        XCTAssertTrue( turn.textOfTurn == "Left")
+    }
     
     func testTurnRightDetector() throws {
         // NW to NW
