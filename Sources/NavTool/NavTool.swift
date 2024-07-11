@@ -117,16 +117,33 @@ class NavTool {
     
     public func getDirectionOfTurn(from heading: Double, to newHeading: Double) -> TurnTo {
         var returnValue: TurnTo = .right
-        var currentHeading = heading == 0 ? 360 : heading
         
-        if newHeading < heading,
-           heading - newHeading < 180 {
-            returnValue = .left
-        } else if newHeading > heading,
-                  heading < 180,
-                  newHeading < 360,
-                  newHeading - heading > 180 {
-            returnValue = .left
+        if heading > 180,
+           newHeading <= 180 {
+            
+            // Opposite sides of the rose
+            if (heading - newHeading) <= 180 {
+                returnValue = .left
+            } else {
+                returnValue = .right
+            }
+            
+        } else if newHeading > 180,
+                  heading <= 180 {
+            
+            // Opposite sides of the rose
+            if (newHeading - heading) <= 180 {
+                returnValue = .right
+            } else {
+                returnValue = .left
+            }
+        } else {
+            // Same side of the rose
+            if heading < newHeading {
+                returnValue = .right
+            } else {
+                returnValue = .left
+            }
         }
         return returnValue
     }
