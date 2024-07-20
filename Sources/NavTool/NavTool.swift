@@ -147,4 +147,24 @@ class NavTool {
         }
         return returnValue
     }
+    
+    public func getAmountOfTurn(from heading: Double, to newHeading: Double, directionOfTurn: TurnTo) -> Double {
+        
+        var difference: Double = 0
+        
+        if directionOfTurn == .left {
+            difference = heading - newHeading
+        } else {
+            difference = newHeading - heading
+        }
+        if difference < 0 {
+            difference += 360
+        }
+        
+        if directionOfTurn == .right {
+            difference = difference * -1
+        }
+        
+        return difference
+    }
 }
